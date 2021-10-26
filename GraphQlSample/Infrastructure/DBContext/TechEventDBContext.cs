@@ -18,8 +18,8 @@ namespace GraphQlSample.Infrastructure.DBContext
         }
 
         public virtual DbSet<EventParticipant> EventParticipants { get; set; }
-        public virtual DbSet<Participant> Participants { get; set; }
-        public virtual DbSet<TechEventInfo> TechEventInfos { get; set; }
+        public virtual DbSet<Participant> Participant { get; set; }
+        public virtual DbSet<TechEventInfo> TechEventInfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

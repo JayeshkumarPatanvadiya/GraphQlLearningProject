@@ -24,6 +24,16 @@ namespace GraphQlSample.GraphqlCore
              "events",
              resolve: context => repository.GetTechEventsAsync()
           );
+
+            Field<ListGraphType<ParticipantType>>(
+           "participant",
+           resolve: context => repository.GetTechParticipantAsync()
+        );
+
+            Field<ListGraphType<EventParticipants>>(
+          "eventparticipants",
+          resolve: context => repository.GetTechEventParticipantAsync()
+       );
         }
     }
 }

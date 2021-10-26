@@ -11,9 +11,14 @@ namespace GraphQlSample.Infrastructure.Repositories
     {
 
         Task<TechEventInfo[]> GetTechEventsAsync();
+        Task<Participant[]> GetTechParticipantAsync();
+
+        Task<EventParticipant[]> GetTechEventParticipantAsync();
         Task<TechEventInfo> GetTechEventByIdAsync(int id);
         Task<List<Participant>> GetParticipantInfoByEventIdAsync(int id);
         Task<TechEventInfo> AddTechEventAsync(NewTechEventRequest techEvent);
+
+        Task<Participant> AddParticipantAsync(NewParticipantRequest techEvent);
         Task<TechEventInfo> UpdateTechEventAsync(TechEventInfo techEvent);
         Task<bool> DeleteTechEventAsync(TechEventInfo techEvent);
     }

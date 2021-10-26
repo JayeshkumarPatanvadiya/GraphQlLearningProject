@@ -27,8 +27,12 @@ namespace GraphQlSample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddControllers(options => options.EnableEndpointRouting = false);
+            services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+
             services.AddDbContext<TechEventDBContext>
                (options => options.UseSqlServer(Configuration.GetConnectionString("GraphQLDBConnection")));
             services.AddSwaggerGen();
@@ -38,13 +42,18 @@ namespace GraphQlSample
 
             services.AddTransient<TechEventInfoType>();
             services.AddTransient<ParticipantType>();
+            services.AddTransient<EventParticipants>();
+
             services.AddTransient<TechEventQuery>();
             services.AddTransient<TechEventInputType>();
             services.AddTransient<TechEventMutation>();
-
+            services.AddTransient<ParticipantInputType>();
+            services.AddTransient<ParticipantMutation>();
 
             var sp = services.BuildServiceProvider();
             services.AddSingleton<ISchema>(new TechEventSchema(new FuncDependencyResolver(type => sp.GetService(type))));
+            //services.AddSingleton<ISchema>(new ParticipantSchema(new FuncDependencyResolver(type => sp.GetService(type))));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -24,6 +24,8 @@ namespace GraphQlSample.GraphqlCore
                     return await repository.AddTechEventAsync(techEventInput);
                 });
 
+           
+
             FieldAsync<TechEventInfoType>(
                 "updateTechEvent",
                 arguments: new QueryArguments(
@@ -62,7 +64,7 @@ namespace GraphQlSample.GraphqlCore
                   }
 
                   await repository.DeleteTechEventAsync(eventInfoRetrived);
-                  return $"Tech Event ID {techEventId} with Name {eventInfoRetrived.EventName} has been deleted succesfully.";
+                  return $"Tech Event ID: {techEventId} with Name: {eventInfoRetrived.EventName} has been deleted succesfully.";
               }
           );
         }

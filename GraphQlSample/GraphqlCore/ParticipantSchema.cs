@@ -1,10 +1,11 @@
 ﻿using GraphQL;
 using GraphQL.Types;
+
 namespace GraphQlSample.GraphqlCore
 {
-    public class TechEventSchema : Schema
+    public class ParticipantSchema : Schema
     {
-        public TechEventSchema(IDependencyResolver resolver)
+        public ParticipantSchema(IDependencyResolver resolver)
         {
             Query = resolver.Resolve<TechEventQuery>();
             Mutation = resolver.Resolve<TechEventMutation>();
