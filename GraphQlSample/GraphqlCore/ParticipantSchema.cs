@@ -7,8 +7,8 @@ namespace GraphQlSample.GraphqlCore
     {
         public ParticipantSchema(IDependencyResolver resolver)
         {
-            Query = resolver.Resolve<TechEventQuery>();
-            Mutation = resolver.Resolve<TechEventMutation>();
+            Query = resolver.Resolve<ParticipantQuery>();
+            Mutation = resolver.Resolve<ParticipantMutation>();
             DependencyResolver = resolver;
         }
     }

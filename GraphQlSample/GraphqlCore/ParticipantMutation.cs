@@ -1,6 +1,4 @@
-﻿using System;
-using GraphQL.Types;
-using GraphQlSample.Infrastructure.DBContext;
+﻿using GraphQL.Types;
 using GraphQlSample.Infrastructure.Repositories;
 using GraphQlSample.Models;
 

@@ -27,9 +27,9 @@ namespace GraphQlSample.Infrastructure.Repositories
         }
 
 
-        public async Task<Participant> AddParticipantAsync(NewParticipantRequest techEvent)
+        public async Task<Participant> AddParticipantAsync(NewParticipantRequest participant)
         {
-            var newEvent = new Participant { ParticipantName = techEvent.ParticipantName, Email = techEvent.Email, Phone = techEvent.Phone };
+            var newEvent = new Participant { ParticipantName = participant.ParticipantName, Email = participant.Email, Phone = participant.Phone };
             var savedEvent = (await _context.Participant.AddAsync(newEvent)).Entity;
             await _context.SaveChangesAsync();
             return savedEvent;

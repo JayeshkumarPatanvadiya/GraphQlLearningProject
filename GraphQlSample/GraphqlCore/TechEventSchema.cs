@@ -8,6 +8,7 @@ namespace GraphQlSample.GraphqlCore
         {
             Query = resolver.Resolve<TechEventQuery>();
             Mutation = resolver.Resolve<TechEventMutation>();
+
             DependencyResolver = resolver;
         }
     }

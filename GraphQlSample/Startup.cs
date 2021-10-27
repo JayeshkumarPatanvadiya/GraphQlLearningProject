@@ -1,17 +1,16 @@
+using GraphiQl;
+using GraphQL;
 using GraphQL.Types;
 using GraphQlSample.GraphqlCore;
 using GraphQlSample.Infrastructure.DBContext;
 using GraphQlSample.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using GraphiQl;
-using GraphQL.Server.Ui.Playground;
-using Microsoft.AspNetCore.Mvc;
-using GraphQL;
 
 namespace GraphQlSample
 {
@@ -39,20 +38,31 @@ namespace GraphQlSample
 
             services.AddTransient<ITechEventRepository, TechEventRepository>();
             services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
-
-            services.AddTransient<TechEventInfoType>();
-            services.AddTransient<ParticipantType>();
+             
             services.AddTransient<EventParticipants>();
 
-            services.AddTransient<TechEventQuery>();
             services.AddTransient<TechEventInputType>();
             services.AddTransient<TechEventMutation>();
-            services.AddTransient<ParticipantInputType>();
-            services.AddTransient<ParticipantMutation>();
+            services.AddTransient<TechEventInfoType>();
+            services.AddTransient<TechEventQuery>();
+            //builder.Services.AddSingleton<ISchema, TechEventSchema>();
+
+            //services.AddTransient<ISchemaMapper>(_ => new SchemaMapper(new Dictionary<string, ISchema> {
+            //{"TechEventSchema", new TechEventSchema(new FuncDependencyResolver(type => (IGraphType)_.GetRequiredService(type))) },
+            //{"ParticipantSchema", new ParticipantSchema(new FuncDependencyResolver(type => (IGraphType)_.GetRequiredService(type))) } }));
+
 
             var sp = services.BuildServiceProvider();
-            services.AddSingleton<ISchema>(new TechEventSchema(new FuncDependencyResolver(type => sp.GetService(type))));
-            //services.AddSingleton<ISchema>(new ParticipantSchema(new FuncDependencyResolver(type => sp.GetService(type))));
+
+           
+             services.AddSingleton<ISchema>(new TechEventSchema(new FuncDependencyResolver(type => sp.GetService(type))));
+
+
+            services.AddTransient<ParticipantInputType>();
+            services.AddTransient<ParticipantMutation>();
+            services.AddTransient<ParticipantType>();
+            services.AddTransient<ParticipantQuery>();
+            //services.AddSingleton<ISchema>(new ParticipantSchema(new FuncDependencyResolver(type => services.BuildServiceProvider().GetService(type))));
 
         }
 
@@ -81,7 +91,9 @@ namespace GraphQlSample
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V2");
             });
-            //   app.UseMvc();
+
+
+
         }
     }
 }
